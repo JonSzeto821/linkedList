@@ -1,0 +1,73 @@
+<script>
+class LinkedList {
+    constructor() {
+        this.length = 0;
+        this.head = null;
+    }
+
+	insert(index, value) {
+	    if (index < 0 || index > this.length) {
+	        throw new Error('Index error');
+	    }
+
+	    const newNode = {
+	        value
+	    };
+
+	    if (index == 0) {
+	        newNode.next = this.head;
+	        this.head = newNode;
+	    }
+	    else {
+	        // Find the node which we want to insert after
+	        const node = this._find(index - 1);
+	        newNode.next = node.next;
+	        node.next = newNode;
+	    }
+
+	    this.length++;
+	}
+
+	_find(index) {
+	    let node = this.head;
+	    for (let i=0; i<index; i++) {
+	        node = node.next;
+	    }
+	    return node;
+	}
+
+	get(index) {
+        if (index < 0 || index >= this.length) {
+            throw new Error('Index error');
+        }
+
+        return this._find(index).value;
+    }
+
+	_findMid() {
+		var fastPointer = this.head;
+		var slowPointer = this.head;
+
+		// loop through the linked list
+		// when fastPointer reaches the end of the list
+		// then slowPointer will be at the middle node
+		while (fastPointer.next !== null && fastPointer.next.next !== null) {
+		  // console.log(slowPointer);
+		  fastPointer = fastPointer.next.next;   
+		  slowPointer = slowPointer.next;
+		  
+		}
+		console.log(slowPointer);
+		return slowPointer.value;
+	}
+}
+
+let l = new LinkedList;
+l.insert(0,'superman');
+l.insert(1,'batman');
+l.insert(2,'birdman');
+l.insert(3,'catwoman');
+l.insert(4,'black panther');
+l.insert(5,'the flash');
+l.insert(6,'the joker');
+</script>
